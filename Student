@@ -1,0 +1,127 @@
+import java.util.*;
+
+public class Student {
+//    public static void main(String[] args) {
+//        Student Alex = new Student(1,"Nikita","Yudachev",20,4.9);
+//        Alex.printInfo(Alex);
+//    }
+    int number;
+    String name;
+    String lastName;
+    int age;
+    double averageScore;
+    public Student(int number, String name, String lastName, int age, double averageScore){
+        this.number = number;
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.averageScore = averageScore;
+    }
+    public int getNumber(){
+        return number;
+    }
+    public void printInfo(Student student){
+        System.out.println("Меня зовут " + name + " " + lastName + " мой возраст " + age + " лет." + "\n" + "Мой номер зачетки "
+        + number + " и мой средний балл равен " + averageScore + ".");
+    }
+
+    @Override
+    public String toString() {
+        return "Имя " + name + " " + lastName + " возраст " + age + " Номер зачетки "
+                + number + " и мой средний балл " + averageScore + ".";
+    }
+}
+
+class Group {
+//    public static void main(String[] args) {
+//        Student Nikita = new Student(1, "Nikita", "Yudachev", 20, 4.9);
+//        Student Sofia = new Student(2, "Sofia", "Yudacheva", 20, 5.0);
+//        Student Mom = new Student(3, "Mom", "Yudacheva", 40, 5.0);
+//        Student Papa = new Student(4, "Papa", "Yudacheva", 45, 5.0);
+//        Group first = new Group("20704");
+//        first.addStudent(Nikita);
+//        first.addStudent(Sofia);
+//        first.addStudent(Mom);
+//        first.addStudent(Papa);
+//        first.getByNumber(1);
+//        first.getByNumber(2);
+//        first.deleteStudent(Nikita);
+//        first.getByNumber(1);
+//        first.getByNumber(2);
+//        System.out.println(first.getAll());
+//        System.out.println(first.getCountByAge());
+//        System.out.println(first.getByMinScore(5.0));
+//        first.printInfo();
+//
+//    }
+    String groupNumber;
+    ArrayList<Student> group = new ArrayList<>();
+    public Group(String groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+    public void addStudent(Student newStudent) {
+        group.add(newStudent);
+    }
+    public Student getByNumber(int serialNumber) {
+        //System.out.println(group.size());
+        for (Student i : group) {
+            if (i.number == serialNumber) {
+                i.printInfo(i);
+            }
+        }
+        return null;
+    }
+    public void deleteStudent(Student student) {
+        group.remove(student);
+    }
+    public List<Student> getAll() {
+        return group;
+    }
+    public Map<Integer, Integer> getCountByAge() {
+        HashMap<Integer, Integer> ageCount = new HashMap<>();
+        for (Student i : group) {
+            if (!ageCount.containsKey(i.age)) {
+                ageCount.put(i.age, 0);
+            }
+            if (ageCount.containsKey(i.age)) {
+                ageCount.put(i.age, ageCount.get(i.age) + 1);
+            }
+        }
+        return ageCount;
+    }
+    public List<String> getByMinScore(double score) {
+        List<String> getByMinScore_students = new ArrayList<>();
+        for (Student i : group) {
+            if (i.averageScore >= score) {
+                getByMinScore_students.add(i.name);
+            }
+        }
+        return getByMinScore_students;
+    }
+    public void printInfo() {
+        System.out.println("Группа номер " + groupNumber + "." + " Количество студентов " + group.size() + ".");
+        }
+}
+
+class Work{
+    public static void main(String[] args) {
+        Student Nikita = new Student(1, "Nikita", "Yudachev", 20, 4.9);
+        Student Roma = new Student(2, "Roma", "Smit", 19, 4.0);
+        Student Vadik = new Student(3, "Vadik", "Mak", 20, 4.9);
+        Student Oleg = new Student(4, "Oleg", "Vor", 21, 5.0);
+        Group first = new Group("20704");
+        first.addStudent(Nikita);
+        first.addStudent(Roma);
+        first.addStudent(Vadik);
+        first.addStudent(Oleg);
+        first.getByNumber(1);
+        System.out.println(first.getAll());
+        first.deleteStudent(Nikita);
+        System.out.println(first.getAll());
+        first.addStudent(Nikita);
+        System.out.println(first.getCountByAge());
+        System.out.println(first.getByMinScore(4.8));
+        first.printInfo();
+        Nikita.printInfo(Nikita);
+    }
+}
